@@ -18,6 +18,16 @@ namespace MaxFashion_Selenium_Project.PageObjects
             this.driver = driver ?? throw new ArgumentException(nameof(driver));
             PageFactory.InitElements(driver, this);
         }
+        private DefaultWait<IWebDriver> CreateWait()
+        {
+
+            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
+            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            wait.Timeout = TimeSpan.FromSeconds(9);
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            return wait;
+        }
         //Arrange
 
         [FindsBy(How = How.XPath, Using = "//button[span[text()='M']]")]
@@ -43,6 +53,8 @@ namespace MaxFashion_Selenium_Project.PageObjects
         public IWebElement SaveButton { get; set; }
         public void SelectSizeBox()
         {
+            
+            CreateWait().Until(d => SizeBox.Displayed);
             SizeBox.SendKeys(Keys.Enter);
         }
         public CheckoutPage ClickAddToBasketButton()
@@ -54,21 +66,15 @@ namespace MaxFashion_Selenium_Project.PageObjects
         }
         public void ClickReviewButton()
         {
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            wait.Until(d => ReviewButton.Displayed);
+            
+            CreateWait().Until(d => ReviewButton.Displayed);
             ReviewButton.Click();
         }
         public void ClickRatingStar(string rating)
         {
             IWebElement RatingStar = driver.FindElement(By.Id("reviewRating-"+rating));
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            wait.Until(d => RatingStar.Displayed);
+            
+            CreateWait().Until(d => RatingStar.Displayed);
             RatingStar.SendKeys(Keys.Enter);
         }
         public void EnterDescriptionInput(string description)

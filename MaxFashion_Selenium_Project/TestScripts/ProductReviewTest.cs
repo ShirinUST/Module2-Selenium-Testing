@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Xml.Linq;
 
 namespace MaxFashion_Selenium_Project.TestScripts
 {
-    [TestFixture]
+    [TestFixture,Order(2)]
     internal class ProductReviewTest:CoreCodes
     {
         [Test]
@@ -23,7 +24,7 @@ namespace MaxFashion_Selenium_Project.TestScripts
         public void ReviewProductTest()
         {
             MaxFashionHomePage max = new(driver);
-
+            LogUpdates();
             //for excel
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string? excelFilePath = currDir + "/TestData/InputData.xlsx";
@@ -36,16 +37,16 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 string? description = item.Description;
                 string? title = item.Title;
                 string? id = item.ProductId;
-
+                Log.Information("Review a product test started");
                 max.MouseHoverCategory();
                 Thread.Sleep(2000);
+                Log.Information("Mouse hovered on category");
                 var searchPage=max.ClickMouseHoverCategoryLink();
                 Thread.Sleep(2000);
+                Screenshots.TakeScreenShot(driver);
+                Log.Information("Clicked the Category");
                 var desiredProduct=searchPage.ClickDesiredProduct(id);
                 Thread.Sleep(2000);
-                //var searchResultPage = max.TypeSearchInput(searchtext);
-                //Thread.Sleep(1000);
-                //var desiredProduct = searchResultPage.ClickDesiredProduct(id);
 
                 List<string> lswindow = driver.WindowHandles.ToList();
                 if (lswindow.Count > 0)
@@ -54,41 +55,40 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 }
 
                 Thread.Sleep(3000);
-
-                //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-              
-                //js.ExecuteScript($"window.scrollTo(0, {yOffset});");
-                //js.ExecuteScript("arguments[0].scrollIntoView();", desiredProduct.ReviewButton);
-                //Actions actions = new Actions(driver);
-                //actions.MoveByOffset(653, 3077).Build().Perform();
-               
-                Thread.Sleep(3000);
+                Log.Information("Clicked the product");
                 //ScrollIntoView(driver, driver.FindElement(By.XPath("//div[text()='You may also like']")));
                  //ScrollIntoView(driver, desiredProduct.ReviewButton);
                 Console.WriteLine(desiredProduct.ReviewButton.Location);
                 desiredProduct.ClickReviewButton();
+                Log.Information("Clicked the Review Button");
                 //driver.SwitchTo().DefaultContent();
                 Thread.Sleep(2000);
+                Screenshots.TakeScreenShot(driver);
+                Log.Information("Adding review started");
                 desiredProduct.ClickRatingStar(rating);
                 desiredProduct.EnterDescriptionInput(description);
                 desiredProduct.EnterTitleInput(title);
                 Thread.Sleep(2000);
+                Screenshots.TakeScreenShot(driver);
+                Log.Information("Completed giving review");
                 desiredProduct.ClickSaveButton();
+                Log.Information("Clicked the Save Button");
+                Screenshots.TakeScreenShot(driver);
                 IWebElement SaveReview = driver.FindElement(By.XPath("//div[text()='Sign up or Sign in']"));
                 
                 try
                 {
                     Assert.That(SaveReview.Text.Contains("Sign up"));
-                    //Log.Information("CheckOut Test Passed");
+                    Log.Information("Review a Product Test Passed");
                     test = extent.CreateTest("Review a Product Test - Pass");
-                    test.Pass("Review  success");
+                    test.Pass("Review test passed");
                     //Console.WriteLine("checkout test-passed");
                 }
                 catch
                 {
                     test = extent.CreateTest("Review a Product Test - Fail");
-                    //Log.Error("CheckOut Test Failed!!");
-                    test.Fail("Review failed");
+                    Log.Error("Review a Product Test Failed!!");
+                    test.Fail("Review test failed");
                     Console.WriteLine("test-failed");
 
                 }

@@ -19,6 +19,16 @@ namespace MaxFashion_Selenium_Project.PageObjects
             this.driver = driver ?? throw new ArgumentException(nameof(driver));
             PageFactory.InitElements(driver, this);
         }
+        private DefaultWait<IWebDriver> CreateWait()
+        {
+
+            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
+            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            wait.Timeout = TimeSpan.FromSeconds(9);
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            return wait;
+        }
         //Arrange
 
         [FindsBy(How = How.XPath, Using = "//button[contains(@class,'MuiButton-contained')][1]")]
@@ -39,12 +49,22 @@ namespace MaxFashion_Selenium_Project.PageObjects
         [FindsBy(How = How.XPath, Using = "(//span[span[input[@type='checkbox']]])[position()=6]")]
         private IWebElement ColorCheckBox { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//div/h6[text()='Minimum']/parent::div/input")]
+        private IWebElement MinimumInputBox { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div/h6[text()='Maximum']/parent::div/input")]
+        private IWebElement MaximumInputBox { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[3]/button/span/span")]
+        private IWebElement MaxMinBox { get; set; }
+
+
         //Act
 
         public void ClickCategoryOfYourChoice(string category)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            IWebElement categoryElement = wait.Until(d=>d.FindElement(By.XPath("//a[.//span//div[text()='" + category + "']]")));
+            //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            IWebElement categoryElement = CreateWait().Until(d=>d.FindElement(By.XPath("//a[.//span//div[text()='" + category + "']]")));
             categoryElement.Click();
         }
         public void ClickSortByButton()
@@ -73,16 +93,27 @@ namespace MaxFashion_Selenium_Project.PageObjects
         }
         public DesiredProductPage ClickDesiredProduct(string id)
         {
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+           
             
             IWebElement desiredProductElement = driver.FindElement(By.XPath("//div[@id='product-"+id+"']/div/div/a[1]"));
-            wait.Until(d => desiredProductElement.Displayed);
+            CreateWait().Until(d => desiredProductElement.Displayed);
             desiredProductElement.SendKeys(Keys.Enter);
             return new DesiredProductPage(driver);
         }
-
+        
+        public void InputMinimumInputBox(string mincost)
+        {
+            MinimumInputBox.Clear();
+            MinimumInputBox.SendKeys(mincost);
+        }
+        public void InputMaximumInputBox(string maxcost)
+        {
+            MaximumInputBox.Clear();
+            MaximumInputBox.SendKeys(maxcost);
+        }
+        public void ClickMaxMinBox()
+        {
+            MaxMinBox.Click();
+        }
     }
 }

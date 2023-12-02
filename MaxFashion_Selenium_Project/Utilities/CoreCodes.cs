@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AventStack.ExtentReports.Model;
+using Serilog;
+using Log = Serilog.Log;
 
 namespace MaxFashion_Selenium_Project.Utilities
 {
@@ -19,7 +22,7 @@ namespace MaxFashion_Selenium_Project.Utilities
         public ExtentReports extent;
         ExtentSparkReporter sparkReporter;
         public ExtentTest test;
-        
+
         [OneTimeSetUp]
         public void InitializeBrowser()
         {
@@ -49,12 +52,23 @@ namespace MaxFashion_Selenium_Project.Utilities
             js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
 
         }
+        //For Log
+        public static void LogUpdates()
+        {
+            string directory = Directory.GetParent(@"../../../").FullName;
+            string logfilepath = directory + "/Logs/log_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+            Log.Logger = new LoggerConfiguration().
+                    WriteTo.Console().
+                    WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day).
+                    CreateLogger();
+        }
 
         [OneTimeTearDown]
         public void Destruct()
         {
             driver.Quit();
             extent.Flush();
+            Log.CloseAndFlush();
         }
     }
 }

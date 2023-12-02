@@ -11,6 +11,8 @@ namespace MaxFashion_Selenium_Project.Utilities
         public string? SearchText { get; set; }
         public string? Category { get; set; }
         public string? ProductId { get; set; }
+        public string? MaxCost { get; set; }
+        public string? MinCost { get; set; }
 
     }
 }

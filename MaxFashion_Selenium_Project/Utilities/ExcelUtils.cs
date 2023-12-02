@@ -38,6 +38,9 @@ namespace MaxFashion_Selenium_Project.Utilities
                                 SearchText = GetValueOrDefault(row, "searchtext"),
                                 Category = GetValueOrDefault(row, "category"),
                                 ProductId = GetValueOrDefault(row, "productid"),
+                                MinCost = GetValueOrDefault(row, "mincost"),
+                                MaxCost = GetValueOrDefault(row, "maxcost"),
+                                
                             };
 
                             excelDataList.Add(excelData);
@@ -84,6 +87,55 @@ namespace MaxFashion_Selenium_Project.Utilities
                                 Title = GetValueOrDefault(row, "title"),
                                 ProductId= GetValueOrDefault(row,"id"),
                                 
+                            };
+
+                            excelDataList.Add(excelData);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Sheet '{sheetName}' not found in the Excel file.");
+                    }
+                }
+            }
+
+            return excelDataList;
+        }
+        //For Gift Card
+        public static List<ExcelGiftCard> ReadExcelDataGiftCard(string excelFilePath, string sheetName)
+        {
+            List<ExcelGiftCard> excelDataList = new List<ExcelGiftCard>();
+            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+            using (var stream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    var result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                    {
+                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+                        {
+                            UseHeaderRow = true,
+                        }
+                    });
+
+                    var dataTable = result.Tables[sheetName];
+
+                    if (dataTable != null)
+                    {
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            ExcelGiftCard excelData = new ExcelGiftCard
+                            {
+                                Money = GetValueOrDefault(row, "money"),
+                                Quantity = GetValueOrDefault(row, "quantity"),
+                                Delivery = GetValueOrDefault(row, "delivery"),
+                                Mode = GetValueOrDefault(row, "mode"),
+                                FirstName = GetValueOrDefault(row, "fname"),
+                                LastName = GetValueOrDefault(row, "lname"),
+                                Email = GetValueOrDefault(row, "email"),
+                                Mobile = GetValueOrDefault(row, "mobile"),
+                                Message = GetValueOrDefault(row, "message"),
                             };
 
                             excelDataList.Add(excelData);

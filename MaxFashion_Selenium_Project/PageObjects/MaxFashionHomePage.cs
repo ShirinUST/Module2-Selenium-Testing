@@ -18,6 +18,16 @@ namespace MaxFashion_Selenium_Project.PageObjects
             this.driver = driver ?? throw new ArgumentException(nameof(driver));
             PageFactory.InitElements(driver, this);
         }
+        private DefaultWait<IWebDriver> CreateWait()
+        {
+
+            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
+            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            wait.Timeout = TimeSpan.FromSeconds(9);
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            return wait;
+        }
         //Arrange
 
         [FindsBy(How =How.Id,Using = "js-site-search-input")]
@@ -29,15 +39,35 @@ namespace MaxFashion_Selenium_Project.PageObjects
         [FindsBy(How = How.XPath, Using = "//button[span[div[text()='More']]]")]
         IWebElement MoreHover { get; set; }
 
-        
+        [FindsBy(How = How.XPath, Using = "//button[span[div[text()='Free Shipping']]]")]
+        IWebElement ShippingHover { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[span[div[text()='Return to Store']]]")]
+        IWebElement StoreHover { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[span[div[text()='Online Gift Card']]]")]
+        IWebElement CardHover { get; set; }
+
+        [FindsBy(How = How.Id, Using = "dept-women")]
+        IWebElement WomenCategoryHover { get; set; }
+
+        [FindsBy(How = How.Id, Using = "dept-men")]
+        IWebElement MenCategoryHover { get; set; }
+
+        [FindsBy(How = How.Id, Using = "dept-boys")]
+        IWebElement BoysCategoryHover { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[@id='root-nav-mini-basket']/div/button")]
+        IWebElement CartButton{ get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//a[@aria-label='max'][1]")]
+        IWebElement MaxLogo { get; set; }
+
         //Act
         public SearchResultPage TypeSearchInput(string product)
         {
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            wait.Until(d => SearchInputBox.Displayed);
+            
+            CreateWait().Until(d => SearchInputBox.Displayed);
             SearchInputBox.Clear();
             SearchInputBox.SendKeys(product);
             SearchInputBox.SendKeys(Keys.Enter);
@@ -45,11 +75,8 @@ namespace MaxFashion_Selenium_Project.PageObjects
         }
         public void MouseHoverCategory()
         {
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            wait.Until(d => CategoryHover.Displayed);
+           
+            CreateWait().Until(d => CategoryHover.Displayed);
             Actions actions=new Actions(driver);
             Action mouseOverClick = () => actions.MoveToElement(CategoryHover)
             .Build().Perform();
@@ -59,22 +86,14 @@ namespace MaxFashion_Selenium_Project.PageObjects
         public SearchResultPage ClickMouseHoverCategoryLink()
         {
             IWebElement hoverElement = driver.FindElement(By.Id("category-menu-2"));
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            wait.Until(d => hoverElement.Displayed);
+            CreateWait().Until(d => hoverElement.Displayed);
             IWebElement webElement = hoverElement.FindElement(By.XPath("//a[text()='Essentials']"));
             webElement.Click();
             return new SearchResultPage(driver);
         }
         public void MouseHoverMore()
         {
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            wait.Until(d => MoreHover.Displayed);
+            CreateWait().Until(d => MoreHover.Displayed);
             Actions actions = new Actions(driver);
             Action mouseOverClick = () => actions.MoveToElement(MoreHover)
             .Build().Perform();
@@ -84,14 +103,65 @@ namespace MaxFashion_Selenium_Project.PageObjects
         public OnlineGiftCardPage ClickMouseHoverMoreLink()
         {
             IWebElement hoverElement = driver.FindElement(By.XPath("//div[contains(@class,'subcategory')]"));
-            DefaultWait<IWebDriver> wait = new DefaultWait<IWebDriver>(driver);
-            wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            wait.Timeout = TimeSpan.FromSeconds(9);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            wait.Until(d => hoverElement.Displayed);
+            CreateWait().Until(d => hoverElement.Displayed);
             IWebElement webElement = hoverElement.FindElement(By.XPath("//a[text()='Online Gift Card']"));
             webElement.Click();
             return new OnlineGiftCardPage(driver);
         }
+        public void ClickShippingOver()
+        {
+           
+            CreateWait().Until(d => ShippingHover.Displayed);
+            Actions actions = new Actions(driver);
+            Action mouseOverClick = () => actions.MoveToElement(ShippingHover)
+            .Build().Perform();
+            mouseOverClick.Invoke();
+        }
+        public void ClickStoreHover()
+        {
+            Actions actions = new Actions(driver);
+            Action mouseOverClick = () => actions.MoveToElement(StoreHover)
+            .Build().Perform();
+            mouseOverClick.Invoke();
+        }
+        public void ClickCardHover()
+        {
+            Actions actions = new Actions(driver);
+            Action mouseOverClick = () => actions.MoveToElement(CardHover)
+            .Build().Perform();
+            mouseOverClick.Invoke();
+        }
+        public void MouseHoverWomenCategory()
+        {
+            Actions actions = new Actions(driver);
+            Action mouseOverClick = () => actions.MoveToElement(WomenCategoryHover)
+            .Build().Perform();
+            mouseOverClick.Invoke();
+
+        }
+        public void MouseHoverMenCategory()
+        {
+            Actions actions = new Actions(driver);
+            Action mouseOverClick = () => actions.MoveToElement(MenCategoryHover)
+            .Build().Perform();
+            mouseOverClick.Invoke();
+
+        }
+        public void MouseHoverBoysCategory()
+        {
+            Actions actions = new Actions(driver);
+            Action mouseOverClick = () => actions.MoveToElement(BoysCategoryHover)
+            .Build().Perform();
+            mouseOverClick.Invoke();
+        }
+        public void ClickCartButton()
+        {
+            CartButton.Click();
+        }
+        public void ClickLogoButton()
+        {
+            MaxLogo.Click();
+        }
+
     }
 }
