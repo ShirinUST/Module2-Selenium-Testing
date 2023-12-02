@@ -39,22 +39,22 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 string? mincost = item.MinCost;
                 string? maxcost = item.MaxCost;
                 
-                    Thread.Sleep(2000);
+                    
                     searchResultPage = max.TypeSearchInput(searchtext);
                     Log.Information("search started");
 
                     Console.WriteLine("Searching item: " + searchtext);
-                    Thread.Sleep(2000);
+                    
                     //Screenshots.TakeScreenShot(driver);
 
                     searchResultPage.ClickCategoryOfYourChoice(category);
-                    Thread.Sleep(2000);
+                    
 
                     searchResultPage.InputMinimumInputBox(mincost);
                     searchResultPage.InputMaximumInputBox(maxcost);
                     Log.Information("Search based on maximum and minimum cost");
                     searchResultPage.ClickMaxMinBox();
-                    Thread.Sleep(3000);
+                    
                 Screenshots.TakeScreenShot(driver);
                 Console.WriteLine();
                 try
@@ -87,7 +87,7 @@ namespace MaxFashion_Selenium_Project.TestScripts
             LogUpdates();
             
                 MaxFashionHomePage max = new(driver);
-                Thread.Sleep(2000);
+                
                 Log.Information("Mouse Hover Free Shipping Button");
                 max.ClickShippingOver();
                 Screenshots.TakeScreenShot(driver);
@@ -188,7 +188,7 @@ namespace MaxFashion_Selenium_Project.TestScripts
             LogUpdates();
            
                 MaxFashionHomePage max = new(driver);
-                Thread.Sleep(2000);
+                
                 desiredProductPage = searchResultPage.ClickDesiredProduct("3");
                 List<string> lswindow = driver.WindowHandles.ToList();
                 if (lswindow.Count > 0)
@@ -196,14 +196,14 @@ namespace MaxFashion_Selenium_Project.TestScripts
                     driver.SwitchTo().Window(lswindow[1]);
                 }
                 desiredProductPage.SelectSizeBox();
-                Thread.Sleep(2000);//Tried Explicit and implicit wait.
+                //Tried Explicit and implicit wait.
                 checkoutPage = desiredProductPage.ClickAddToBasketButton();
                 checkoutPage.ClickRemoveButton();
                 Log.Information("Removing item in Progress");
                 Screenshots.TakeScreenShot(driver);
                 checkoutPage.ClickRemoveConfirmButton();
                 Log.Information("Clicking Remove Confirmation");
-                Thread.Sleep(2000);
+                
             Screenshots.TakeScreenShot(driver);
             try
             {

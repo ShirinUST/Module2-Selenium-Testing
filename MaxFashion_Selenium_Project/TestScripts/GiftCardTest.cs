@@ -46,9 +46,9 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 string? mobile = item.Mobile;
                 string? message = item.Message;
 
-                Thread.Sleep(1000);
+                
                 max.MouseHoverMore();
-                Thread.Sleep(1000);
+                
                 var giftCardPage=max.ClickMouseHoverMoreLink();
                 //Thread.Sleep(1000);
                 //ScrollIntoView(driver, driver.FindElement(By.XPath("//hr[@data-content='Enter Denomination']")));
@@ -71,12 +71,12 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 //giftCardPage.ClickPreviewButton();
                 //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 //wait.Until(ExpectedConditions.ElementToBeClickable(giftCardPage.CloseButton));
-                Thread.Sleep(3000);
+                
                 //giftCardPage.ClickCloseButton();
                 giftCardPage.ClickAgreeCheckbox();
                 var payPage=giftCardPage.ClickPayNowButton();
                 Log.Information("Clicked Pay Now button");
-                Thread.Sleep(15000);
+                
                 Screenshots.TakeScreenShot(driver);
                 try
                 {

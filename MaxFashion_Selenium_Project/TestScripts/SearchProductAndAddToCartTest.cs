@@ -36,38 +36,36 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 string? productId=item.ProductId;
 
                 Log.Information("Search Test Started");
-                Thread.Sleep(2000);
                 var searchResultPage=max.TypeSearchInput(searchtext);
                 Log.Information("Search Initiated");
-                Thread.Sleep(2000);
                 Screenshots.TakeScreenShot(driver);
                 Log.Information("Search Finished");
                 searchResultPage.ClickCategoryOfYourChoice(category);
-                Thread.Sleep(2000);
+                
                 searchResultPage.ClickSortByButton();
                 Log.Information("Sort started");
-                Thread.Sleep(2000);
+                
                 Log.Information("Sorting by category");
                 searchResultPage.ClickSortByButtonCategory();
                 Log.Information("Sorting completed");
-                Thread.Sleep(2000);
+                
                 searchResultPage.ClickSizePlusButton();
-                Thread.Sleep(2000);
+                
                 searchResultPage.SelectSize();
                 Log.Information("Size selected");
-                Thread.Sleep(2000);
+                
                 //ScrollIntoView(driver, driver.FindElement(By.XPath("//h6[text()='color']")));
                 searchResultPage.ClickColorPlusButton();
-                Thread.Sleep(2000);
+                
                 searchResultPage.SelectColor();
                 Log.Information("Color selected");
-                Thread.Sleep(2000);
+                
                 Screenshots.TakeScreenShot(driver);
                 IWebElement productname = driver.FindElement(By.XPath("//div[@id='product-"+productId+"']/div/div[3]/a"));
                 Console.WriteLine(productname.Text);
                 var desiredProductpage=searchResultPage.ClickDesiredProduct(productId);
                 Log.Information("Product Selected - "+productname.Text);
-                Thread.Sleep(10000);
+                
                 Screenshots.TakeScreenShot(driver);
 
                 List<string> lswindow = driver.WindowHandles.ToList();
@@ -77,18 +75,18 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 }
 
                 desiredProductpage.SelectSizeBox();
-                Thread.Sleep(2000);
+                
 
                 ScrollIntoView(driver, desiredProductpage.AddToBasketButton);
 
                 var checkoutPage = desiredProductpage.ClickAddToBasketButton();
                 Log.Information("Add to basket button clicked");
-                Thread.Sleep(4000);
+                
                 Screenshots.TakeScreenShot(driver);
 
                 checkoutPage.ClickCheckOutButton();
                 Log.Information("CheckOut button clicked");
-                Thread.Sleep(3000);
+                
                 Screenshots.TakeScreenShot(driver);
                 //Console.WriteLine("signup "+confirmCheckout);
                 try

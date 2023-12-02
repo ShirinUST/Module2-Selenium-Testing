@@ -39,14 +39,14 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 string? id = item.ProductId;
                 Log.Information("Review a product test started");
                 max.MouseHoverCategory();
-                Thread.Sleep(2000);
+                
                 Log.Information("Mouse hovered on category");
                 var searchPage=max.ClickMouseHoverCategoryLink();
-                Thread.Sleep(2000);
+                
                 Screenshots.TakeScreenShot(driver);
                 Log.Information("Clicked the Category");
                 var desiredProduct=searchPage.ClickDesiredProduct(id);
-                Thread.Sleep(2000);
+                
 
                 List<string> lswindow = driver.WindowHandles.ToList();
                 if (lswindow.Count > 0)
@@ -54,7 +54,7 @@ namespace MaxFashion_Selenium_Project.TestScripts
                     driver.SwitchTo().Window(lswindow[1]);
                 }
 
-                Thread.Sleep(3000);
+                
                 Log.Information("Clicked the product");
                 //ScrollIntoView(driver, driver.FindElement(By.XPath("//div[text()='You may also like']")));
                  //ScrollIntoView(driver, desiredProduct.ReviewButton);
@@ -62,13 +62,13 @@ namespace MaxFashion_Selenium_Project.TestScripts
                 desiredProduct.ClickReviewButton();
                 Log.Information("Clicked the Review Button");
                 //driver.SwitchTo().DefaultContent();
-                Thread.Sleep(2000);
+                
                 Screenshots.TakeScreenShot(driver);
                 Log.Information("Adding review started");
                 desiredProduct.ClickRatingStar(rating);
                 desiredProduct.EnterDescriptionInput(description);
                 desiredProduct.EnterTitleInput(title);
-                Thread.Sleep(2000);
+                
                 Screenshots.TakeScreenShot(driver);
                 Log.Information("Completed giving review");
                 desiredProduct.ClickSaveButton();
