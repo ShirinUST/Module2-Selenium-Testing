@@ -1,0 +1,3 @@
+2023-12-02 15:08:17.605 +05:30 [INF] Removing item in Progress
+2023-12-02 15:08:18.058 +05:30 [INF] Clicking Remove Confirmation
+2023-12-02 15:08:20.277 +05:30 [INF] Removing an Item from cart Test- Passed

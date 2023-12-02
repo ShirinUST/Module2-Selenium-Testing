@@ -1,0 +1,12 @@
+2023-12-02 15:51:13.552 +05:30 [INF] Search Test Started
+2023-12-02 15:51:16.090 +05:30 [INF] Search Initiated
+2023-12-02 15:51:18.399 +05:30 [INF] Search Finished
+2023-12-02 15:51:20.773 +05:30 [INF] Sort started
+2023-12-02 15:51:22.783 +05:30 [INF] Sorting by category
+2023-12-02 15:51:23.063 +05:30 [INF] Sorting completed
+2023-12-02 15:51:27.501 +05:30 [INF] Size selected
+2023-12-02 15:51:31.952 +05:30 [INF] Color selected
+2023-12-02 15:51:34.422 +05:30 [INF] Product Selected - Women Graphic Printed T-shirt
+2023-12-02 15:51:47.249 +05:30 [INF] Add to basket button clicked
+2023-12-02 15:51:51.598 +05:30 [INF] CheckOut button clicked
+2023-12-02 15:51:54.812 +05:30 [INF] CheckOut Test Passed

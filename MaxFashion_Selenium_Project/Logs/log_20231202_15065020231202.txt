@@ -1,0 +1,9 @@
+2023-12-02 15:06:50.844 +05:30 [INF] Review a product test started
+2023-12-02 15:06:53.276 +05:30 [INF] Mouse hovered on category
+2023-12-02 15:06:56.300 +05:30 [INF] Clicked the Category
+2023-12-02 15:07:01.577 +05:30 [INF] Clicked the product
+2023-12-02 15:07:02.146 +05:30 [INF] Clicked the Review Button
+2023-12-02 15:07:04.338 +05:30 [INF] Adding review started
+2023-12-02 15:07:07.039 +05:30 [INF] Completed giving review
+2023-12-02 15:07:07.244 +05:30 [INF] Clicked the Save Button
+2023-12-02 15:07:07.588 +05:30 [INF] Review a Product Test Passed

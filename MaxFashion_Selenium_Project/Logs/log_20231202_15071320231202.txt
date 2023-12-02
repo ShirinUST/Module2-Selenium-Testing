@@ -1,0 +1,4 @@
+2023-12-02 15:07:20.450 +05:30 [INF] Entering details for Gift card purchasing
+2023-12-02 15:07:21.194 +05:30 [INF] Selected deliver options asSend As Gift and mode of delivery as Both
+2023-12-02 15:07:26.042 +05:30 [INF] Clicked Pay Now button
+2023-12-02 15:07:41.354 +05:30 [INF] Gift Card Purchased Completed- Test Passed

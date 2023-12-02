@@ -1,0 +1,8 @@
+2023-12-02 15:08:00.220 +05:30 [INF] Mouse Hover Free Shipping Button
+2023-12-02 15:08:00.891 +05:30 [INF] Mouse Hover Return to Store Button
+2023-12-02 15:08:01.204 +05:30 [INF] Mouse Hover Gift Card Button
+2023-12-02 15:08:01.528 +05:30 [INF] Mouse Hover the Category Women
+2023-12-02 15:08:01.874 +05:30 [INF] Mouse Hover the Category Men
+2023-12-02 15:08:02.225 +05:30 [INF] Mouse Hover the Category Girls
+2023-12-02 15:08:02.595 +05:30 [INF] Mouse Hover the Cataegory Boys
+2023-12-02 15:08:03.665 +05:30 [INF] Hover Test Passed
